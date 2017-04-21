@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FieldBook", "FieldBook\FieldBook.csproj", "{1DAD5607-3CE9-4763-BE47-4F29E8DFA953}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FieldBook.Tests", "FieldBook.Tests\FieldBook.Tests.csproj", "{B3EB93AB-FCA2-4E79-B416-204388D84C06}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1DAD5607-3CE9-4763-BE47-4F29E8DFA953}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DAD5607-3CE9-4763-BE47-4F29E8DFA953}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DAD5607-3CE9-4763-BE47-4F29E8DFA953}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DAD5607-3CE9-4763-BE47-4F29E8DFA953}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3EB93AB-FCA2-4E79-B416-204388D84C06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3EB93AB-FCA2-4E79-B416-204388D84C06}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3EB93AB-FCA2-4E79-B416-204388D84C06}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3EB93AB-FCA2-4E79-B416-204388D84C06}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
