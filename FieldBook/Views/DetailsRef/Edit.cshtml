@@ -1,0 +1,222 @@
+﻿@using FieldBook.Models
+
+@model OrderDetailsRefItem
+
+@{
+  ViewBag.Title = "Edit";
+  Layout = "~/Views/Shared/_Layout.cshtml";
+  AjaxOptions ajaxOpts = new AjaxOptions { UpdateTargetId = "containerForDetails" };
+}
+
+<h2>Изменить</h2>
+
+@if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+{
+  <div class="panel panel-danger">
+    <div class="panel-heading"><h3>Ошибка</h3></div>
+    <div class="panel-body"><h4>@ViewBag.ErrorMessage</h4></div>
+  </div>
+}
+
+@if (Model.Archival)
+{
+  <div class="panel panel-danger">
+    <div class="panel-heading"><h3>Внимание! Этот детейл не используется (убран в архив)</h3></div>
+  </div>
+}
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-6">
+      <h3>Свойства детейла:</h3>
+      @using (Html.BeginForm("Edit", "DetailsRef", FormMethod.Post, new { @role = "form", @class = "form-horizontal" }))
+      {
+        @Html.ValidationSummary();
+
+        <div class="form-horizontal">
+          @Html.HiddenFor(model => model.Id)
+          @Html.HiddenFor(model => model.Actual)
+          @Html.HiddenFor(model => model.Archival)
+          @Html.HiddenFor(model => Model.CreateDate)
+          @Html.HiddenFor(model => model.DetailName)
+          @Html.HiddenFor(model => model.DetailType)
+          @Html.HiddenFor(model => model.InterfaceType)
+          @Html.HiddenFor(model => model.Author)
+
+          <div class="form-group">
+            @Html.LabelFor(model => model.DetailName, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-8">
+              <p class="form-control-static">
+                @Html.DisplayFor(model => model.DetailName, new { htmlAttributes = new { @class = "form-control" } })
+              </p>
+            </div>
+          </div>
+
+          <div class="form-group">
+            @Html.LabelFor(model => model.InterfaceType, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-8">
+              <p class="form-control-static">
+                @Html.DisplayFor(model => model.InterfaceType, new { htmlAttributes = new { @class = "form-control" } })
+              </p>
+            </div>
+          </div>
+
+          <div class="form-group">
+            @Html.LabelFor(model => model.DetailType, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-8">
+              <p class="form-control-static">
+                @Html.DisplayFor(model => model.DetailType, new { htmlAttributes = new { @class = "form-control" } })
+              </p>
+            </div>
+          </div>
+
+          <div class="form-group">
+            @Html.LabelFor(model => model.CreateDate, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-8">
+              <p class="form-control-static">
+                @Html.DisplayFor(model => model.CreateDate, new { htmlAttributes = new { @class = "form-control" } })
+              </p>
+            </div>
+          </div>
+
+          <div class="form-group">
+            @Html.LabelFor(model => model.Display, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-8">
+              @Html.EditorFor(model => model.Display, new { htmlAttributes = new { @class = "form-control" } })
+              @Html.ValidationMessageFor(model => model.Display, "", new { @class = "text-danger" })
+            </div>
+          </div>
+
+          <div class="form-group">
+            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-8">
+              @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+              @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+          </div>
+
+          <div class="form-group">
+            @Html.LabelFor(model => model.Author, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-8">
+              <p class="form-control-static">
+                @Html.DisplayFor(model => model.Author, new { htmlAttributes = new { @class = "form-control" } })
+              </p>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-md-offset-4 col-md-8">
+              <input type="submit" value="Сохранить свойства" class="btn btn-primary" />
+            </div>
+          </div>
+        </div>
+      }
+
+      <div>
+        @Html.ActionLink("К списку", "Index")
+      </div>
+    </div>
+    <div class="col-md-6">
+      <h3>Опции детейла:</h3>
+
+      <div class="panel-group">
+        @*'Архивность' детейла*@
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            @using (@Html.BeginForm("ChangeArchivalState", "DetailsRef", FormMethod.Post, new { @class = "form-inline panel-title" }))
+            {
+              @:В архиве? - @(Model.Archival ? "Да" : "Нет").
+              @Html.HiddenFor(model => model.Id)
+              @Html.HiddenFor(model => model.Actual)
+              @Html.HiddenFor(model => model.Archival)
+              @Html.HiddenFor(model => model.Author)
+              @Html.HiddenFor(model => model.CreateDate)
+              @Html.HiddenFor(model => model.Description)
+              @Html.HiddenFor(model => model.DetailName)
+              @Html.HiddenFor(model => model.DetailType)
+              @Html.HiddenFor(model => model.Display)
+              @Html.HiddenFor(model => model.InterfaceType)
+              <button type="submit" class="btn btn-info">
+                @(Model.Archival ? "Вывести из архива" : "Убрать в архив")
+              </button>
+            }
+          </div>
+        </div>
+
+        @*Список значений детейла*@
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" href="#valueList">Список значений:</a>
+            </h4>
+          </div>
+          <div id="valueList" class="panel-collapse collapse in">
+            <div class="panel-body">
+              @if (Model.Values.Data.Count > 0)
+              {
+                <div class="alert alert-info"><span class="glyphicon glyphicon-info-sign"></span> Хотите удалить значение? - Очистите правое поле!</div>
+              }
+              @foreach (var val in Model.Values.Data)
+              {
+                <div class="row">
+                  @using (@Html.BeginForm("SetValue", "DetailsRef"))
+                  {
+                    <input type="hidden" name="detailId" value="@Model.Id" />
+                    <input type="hidden" name="detailName" value="@Model.DetailName" />
+                    <input type="hidden" name="interfaceType" value="@Model.InterfaceType" />
+                    <div class="col-md-5">
+                      <input type="text" readonly name="value" class="form-control" value="@val.Key" />
+                    </div>
+                    <div class="col-md-5">
+                      <input type="text" name="displayValue" class="form-control" value="@val.Value" />
+                    </div>
+                    <div class="col-md-1">
+                      <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-save"></span></button>
+                    </div>
+                  }
+                </div>
+              }
+              <div class="row">
+                @using (@Html.BeginForm("SetValue", "DetailsRef"))
+                {
+                  <input type="hidden" name="detailId" value="@Model.Id" />
+                  <input type="hidden" name="detailName" value="@Model.DetailName" />
+                  <input type="hidden" name="interfaceType" value="@Model.InterfaceType" />
+                  <div class="col-md-5">
+                    <input type="text" name="value" class="form-control" value="" placeholder="Значение" />
+                  </div>
+                  <div class="col-md-5">
+                    <input type="text" name="displayValue" class="form-control" value="" placeholder="Отображаемое значение" />
+                  </div>
+                  <div class="col-md-1">
+                    <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span></button>
+                  </div>
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+
+        @*Список шаблонов оформления, в которых используется этот детейл*@
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" href="#fileList">В каких файлах используется?</a>
+            </h4>
+          </div>
+          <div id="fileList" class="panel-collapse collapse in">
+            <div class="panel-body">
+              @using (Ajax.BeginForm("GetFilesWhichContains", "DetailsRef", new AjaxOptions { UpdateTargetId = "containerForFileList" }, new { @class = "form-inline" }))
+              {
+                <button type="submit" class="btn btn-info">Получить список файлов</button>
+                <input type="text" name="detailName" class="form-control" value="@Model.DetailName" />
+              }
+              <div id="containerForFileList">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

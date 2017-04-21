@@ -1,0 +1,81 @@
+﻿@model IEnumerable<FieldBook.Models.OrderDetailsRefItem>
+
+@if (Model.Count() == 0)
+{
+  <div class="alert alert-info text-center"><span class="glyphicon glyphicon-info-sign" style="vertical-align:baseline;"></span> Ничего не найдено. Попробуйте изменить условия поиска.</div>
+}
+else
+{
+  <table class="table table-striped" id="tableBody" style="table-layout: fixed; word-wrap: break-word">
+    <thead>
+      <tr>
+        <th class="col-sm-1"></th>
+        <th class="col-sm-2">
+          @Html.DisplayNameFor(model => model.DetailName)
+        </th>
+        <th class="col-sm-2">
+          @Html.DisplayNameFor(model => model.Display)
+        </th>
+        <th class="col-sm-5">
+          @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th class="col-sm-2">
+          @Html.DisplayNameFor(model => model.InterfaceType)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.DetailType)
+          </th>
+          <th>
+            @Html.DisplayNameFor(model => model.CreateDate)
+          </th>
+          <th>
+            @Html.DisplayNameFor(model => model.Author)
+          </th>*@
+      </tr>
+    </thead>
+    <tbody>
+      @foreach (var item in Model)
+      {
+        <tr>
+          <td>
+            <div class="btn-group btn-group-sm">
+              <a href=@Url.Action("Edit", "DetailsRef", new { id = item.Id }) data-toggle="tooltip" title="Изменить" class="btn btn-default">
+                <span class="glyphicon glyphicon-pencil"></span>
+              </a>
+              <a href=@Url.Action("Show", "DetailsRef", new { id = item.Id }) data-toggle="tooltip" title="Подробности" class="btn btn-default">
+                <span class="glyphicon glyphicon-zoom-in"></span>
+              </a>
+            </div>
+          </td>
+          <td>
+            @Html.DisplayFor(modelItem => item.DetailName)
+          </td>
+          <td>
+            @Html.DisplayFor(modelItem => item.Display)
+          </td>
+          <td>
+            @Html.DisplayFor(modelItem => item.Description)
+          </td>
+          <td>
+            @Html.DisplayFor(modelItem => item.InterfaceType)
+          </td>
+          @*<td>
+              @Html.DisplayFor(modelItem => item.DetailType)
+            </td>
+            <td>
+              @Html.DisplayFor(modelItem => item.CreateDate)
+            </td>
+            <td>
+              @Html.DisplayFor(modelItem => item.Author)
+            </td>*@
+        </tr>
+      }
+    </tbody>
+  </table>
+}
+
+<script type="text/javascript">
+  //$(document).ready(function () {
+  //  $('#tableBody').DataTable();
+  //});
+</script>

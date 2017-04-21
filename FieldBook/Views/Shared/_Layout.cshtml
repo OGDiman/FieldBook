@@ -1,0 +1,38 @@
+﻿@using System.Web.UI.WebControls
+@using System.Web.Optimization
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>РАТ - @ViewBag.Title</title>
+  @Styles.Render("~/Content/css")
+  @Scripts.Render("~/bundles/modernizr")
+  @Scripts.Render("~/bundles/jquery")
+  @Scripts.Render("~/bundles/bootstrap")
+  @Scripts.Render("~/bundles/jqueryUnobtrusiveAjax")
+
+  @* Ниже две ссылки для отображения таблицы с расширенными возможностями *@
+  <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.css">
+  <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.js"></script>
+</head>
+<body>
+  <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-brand">Справочник детейлов заявок</div>
+    <div class="container">
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li class="navbar-text"><b>@System.Web.HttpContext.Current.Request.LogonUserIdentity.Name</b></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="container body-content">
+    @RenderBody()
+  </div>
+
+  @RenderSection("scripts", required: false)
+</body>
+</html>

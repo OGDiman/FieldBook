@@ -1,0 +1,65 @@
+﻿@model FieldBook.Models.OrderDetailsRefSearch
+
+@{
+  ViewBag.Title = "Index";
+  Layout = "~/Views/Shared/_DetailsRefLayout.cshtml";
+  AjaxOptions ajaxOpts = new AjaxOptions { UpdateTargetId = "containerForDetails" };
+}
+<link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css" />
+<script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+
+@using (Ajax.BeginForm("GetDetails", "DetailsRef", ajaxOpts, new { role = "form", @class = "form-inline", enctype = "multipart/form-data", style = "margin-top: 10px; margin-bottom: 10px;" }))
+{
+  <div class="input-group">
+    <input type="text" id="fromDatePicker" name="FromDate" class="form-control" value="@Model.FromDate.Value.ToShortDateString()" placeholder="Дата с" />
+    <span class="input-group-btn" style="width:0px;"></span>
+    <input type="text" id="toDatePicker" name="ToDate" class="form-control" value="@Model.ToDate.Value.ToShortDateString()" placeholder="по" style="margin-left:-1px" />
+  </div>
+
+  <select name="Show" class="form-control">
+    <option value="allDetails" class="@((Model.Show == "allDetails" ? "select" : ""))">Показать все</option>
+    <option value="onlyNewDetails" class="@((Model.Show == "onlyNewDetails" ? "select" : ""))">Только новые</option>
+    <option value="onlyDocumentedDetails" class="@((Model.Show == "onlyDocumentedDetails" ? "select" : ""))">Только задокументированные</option>
+  </select>
+
+  <input type="text" name="Contains" class="form-control" placeholder="Содержит..." value="@Model.Contains" />
+
+  <div class="form-group">
+    <button type="submit" class="btn btn-primary">Поиск</button>
+  </div>
+}
+
+<div id="containerForDetails">
+  @Html.Action("GetDetails")
+</div>
+
+<script type="text/javascript">
+
+  function initTimePicker() {
+    $.datepicker.regional['ru'] = {
+      closeText: 'Закрыть',
+      prevText: '<Пред',
+      nextText: 'След>',
+      currentText: 'Сегодня',
+      monthNames: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
+      monthNamesShort: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'],
+      dayNames: ['воскресенье', 'понедельник', 'вторник', 'среда', 'четверг', 'пятница', 'суббота'],
+      dayNamesShort: ['вск', 'пнд', 'втр', 'срд', 'чтв', 'птн', 'сбт'],
+      dayNamesMin: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
+      weekHeader: 'Не',
+      dateFormat: 'dd.mm.yy',
+      firstDay: 1,
+      isRTL: false,
+      showMonthAfterYear: false,
+      yearSuffix: ''
+    };
+    $.datepicker.setDefaults($.datepicker.regional['ru']);
+
+  }
+
+  initTimePicker();
+  $(function () {
+    $('#fromDatePicker').datepicker();
+    $('#toDatePicker').datepicker();
+  });
+</script>

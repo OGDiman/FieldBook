@@ -1,0 +1,105 @@
+﻿@model FieldBook.Models.OrderDetailsRefItem
+
+@{
+  ViewBag.Title = "Show";
+  Layout = "~/Views/Shared/_DetailsRefLayout.cshtml";
+}
+
+<h2>Show</h2>
+
+<div>
+  <h4>OrderDetailsRefItem</h4>
+  <hr />
+  <dl class="dl-horizontal">
+    <dt>
+      @Html.DisplayNameFor(model => model.DetailName)
+    </dt>
+
+    <dd>
+      @Html.DisplayFor(model => model.DetailName)
+    </dd>
+
+    <dt>
+      @Html.DisplayNameFor(model => model.InterfaceType)
+    </dt>
+
+    <dd>
+      @Html.DisplayFor(model => model.InterfaceType)
+    </dd>
+
+    <dt>
+      @Html.DisplayNameFor(model => model.DetailType)
+    </dt>
+
+    <dd>
+      @Html.DisplayFor(model => model.DetailType)
+    </dd>
+
+    <dt>
+      @Html.DisplayNameFor(model => model.CreateDate)
+    </dt>
+
+    <dd>
+      @Html.DisplayFor(model => model.CreateDate)
+    </dd>
+
+    <dt>
+      @Html.DisplayNameFor(model => model.Display)
+    </dt>
+
+    <dd>
+      @Html.DisplayFor(model => model.Display)
+    </dd>
+
+    <dt>
+      @Html.DisplayNameFor(model => model.Description)
+    </dt>
+
+    <dd>
+      @Html.DisplayFor(model => model.Description)
+    </dd>
+
+    <dt>
+      @Html.DisplayNameFor(model => model.Author)
+    </dt>
+
+    <dd>
+      @Html.DisplayFor(model => model.Author)
+    </dd>
+
+    <dt>
+      @Html.DisplayNameFor(model => model.Actual)
+    </dt>
+
+    <dd>
+      @Html.DisplayFor(model => model.Actual)
+    </dd>
+
+    <dt>
+      @Html.DisplayNameFor(model => model.Archival)
+    </dt>
+
+    <dd>
+      @Html.DisplayFor(model => model.Archival)
+    </dd>
+  </dl>
+
+  @if (!Model.Values.IsEmpty)
+  {
+    <h4>Список значений:</h4>
+    <ul class="list-group">
+
+
+      @foreach (var optType in Model.Values.Data)
+      {
+        <li class="list-group-item">
+          @optType.Key <small>@optType.Value</small>
+        </li>
+      }
+    </ul>
+  }
+</div>
+<p>
+  @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+  @Html.ActionLink("Back to List", "Index")
+</p>
